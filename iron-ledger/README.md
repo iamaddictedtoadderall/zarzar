@@ -6,20 +6,22 @@ You are Wren, a contract pilot revived from cold storage by the Halvard–Mace C
 
 ## Play
 
-Open `index.html` in a desktop browser (Chrome, Edge or Firefox). You need a keyboard, a mouse and an internet connection, because Three.js and the fonts load from public CDNs. Click the view to capture the mouse.
+Open `index.html` in a browser on a computer or a phone. It needs an internet connection, because Three.js and the fonts load from public CDNs.
 
-| Action | Input |
-| --- | --- |
-| Move | W A S D |
-| Aim | Mouse (arrow keys also work) |
-| Jump, hold to hover | Space |
-| Quick boost (dash) | Shift |
-| Rifle | Left click |
-| Pulse blade (lunges at your target) | Right click |
-| Missile salvo | Q |
-| Hard lock on current target | E or middle click |
-| Repair kit | R |
-| Pause | Esc or P |
+| Action | Keyboard and mouse | Touch |
+| --- | --- | --- |
+| Move | W A S D | Left thumb (a stick appears where you touch) |
+| Aim | Mouse (arrow keys also work) | Drag anywhere on the right side |
+| Jump, hold to hover | Space | Hold JUMP |
+| Quick boost (dash) | Shift | BOOST |
+| Rifle | Left click | Hold FIRE (slide it to aim while shooting) |
+| Pulse blade (lunges at your target) | Right click | BLADE |
+| Missile salvo | Q | MSL |
+| Hard lock on current target | E or middle click | LOCK |
+| Repair kit | R | KIT |
+| Pause | Esc or P | II |
+
+On a computer, click the view to capture the mouse. On a phone, play in landscape. Touch devices start on the Low graphics setting, and you can change it on the title or pause screen.
 
 ## Tips
 

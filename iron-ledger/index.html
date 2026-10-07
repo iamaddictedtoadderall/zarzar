@@ -145,8 +145,60 @@ body{font-family:var(--f-display);-webkit-font-smoothing:antialiased;user-select
 .settings label{display:flex;gap:10px;align-items:center}
 .settings input[type=range]{width:110px;accent-color:var(--hmc)}
 .settings input[type=checkbox]{accent-color:var(--hmc)}
-.touchnote{display:none;margin-top:20px;font-family:var(--f-mono);font-size:12px;color:var(--threat)}
-@media (pointer:coarse){.touchnote{display:block}}
+.touchnote{display:none;margin-top:20px;font-family:var(--f-mono);font-size:12px;color:var(--hmc)}
+#game.touch .touchnote{display:block}
+.settings select{font:inherit;letter-spacing:.1em;background:transparent;color:var(--hud);border:1px solid var(--hud-dim);padding:2px 4px}
+.settings select option{background:var(--ink)}
+@media (max-height:520px){
+  .title-wrap{padding-block:20px}
+  .title-wrap h1{font-size:clamp(56px,10vw,96px);margin:10px 0 6px}
+  .title-wrap .actions,.controls{margin-top:16px}
+}
+
+/* ---------- TOUCH ---------- */
+#touch{position:absolute;inset:0;touch-action:none;-webkit-user-select:none;-webkit-touch-callout:none}
+#stick{position:absolute;left:0;top:0;width:124px;height:124px;margin:-62px 0 0 -62px;border:1.5px solid var(--hud-dim);border-radius:50%;pointer-events:none;background:rgba(12,11,14,.2)}
+#stick .knob{position:absolute;left:50%;top:50%;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;background:rgba(233,227,211,.3);border:1.5px solid var(--hud)}
+#stickHome{position:absolute;left:calc(70px + env(safe-area-inset-left,0px));bottom:60px;width:96px;height:96px;border:1.5px dashed var(--hud-faint);border-radius:50%;pointer-events:none;display:grid;place-items:center;font:500 10px var(--f-mono);color:var(--hud-dim);letter-spacing:.1em}
+.tb{position:absolute;width:var(--s,60px);height:var(--s,60px);border-radius:50%;border:1.5px solid var(--hud-dim);background:rgba(12,11,14,.4);color:var(--hud);font:600 12px/1 var(--f-display);letter-spacing:.14em;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:0;touch-action:none;-webkit-tap-highlight-color:transparent;--r:env(safe-area-inset-right,0px)}
+.tb small{font:500 10px var(--f-mono);letter-spacing:0;color:var(--hud-dim)}
+.tb.on{background:rgba(224,145,60,.5);border-color:var(--hmc)}
+.tb.cool{opacity:.45}
+#tFire{--s:92px;right:calc(24px + var(--r));bottom:28px;border-color:var(--hud);font-size:14px}
+#tBlade{right:calc(128px + var(--r));bottom:22px}
+#tBoost{right:calc(118px + var(--r));bottom:96px}
+#tJump{right:calc(38px + var(--r));bottom:134px}
+#tMsl{--s:50px;right:calc(200px + var(--r));bottom:76px}
+#tLock{--s:46px;right:calc(186px + var(--r));bottom:142px}
+#tKit{--s:46px;right:calc(108px + var(--r));bottom:172px}
+#tPause{--s:38px;top:12px;right:calc(128px + var(--r));font-size:11px}
+#rotate{position:absolute;left:50%;top:42%;transform:translateX(-50%);font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--hmc);background:rgba(12,11,14,.6);padding:8px 14px;pointer-events:none;text-align:center;width:max-content;max-width:80vw}
+#game.touch #weapons,#game.touch #frameTag,#game.touch #compass,#game.touch #timer{display:none}
+#game.touch #radar{display:block;width:104px;height:104px;right:calc(14px + env(safe-area-inset-right,0px));top:10px}
+#game.touch #objpanel{left:calc(14px + env(safe-area-inset-left,0px));top:10px;max-width:29vw}
+#game.touch #mname{font-size:10px;letter-spacing:.2em}
+#game.touch #objs li{font-size:13px;letter-spacing:.04em}
+#game.touch #comms{left:53%;top:8px;bottom:auto;transform:translateX(-50%);width:min(420px,36vw);padding:7px 12px 9px}
+#game.touch #comms .who{font-size:11px}
+#game.touch #comms canvas{width:44px;height:11px}
+#game.touch #comms .line{font-size:12px;line-height:1.4}
+#game.touch #status{left:50%;bottom:8px;width:min(280px,32vw);margin-left:0;transform:translateX(-50%)}
+#game.touch #apNum{font-size:20px}
+#game.touch #hint{bottom:92px;white-space:normal;max-width:44vw;text-align:center;font-size:12px;letter-spacing:.12em}
+#game.touch #warn{top:24%}
+#game.touch #warn div{font-size:15px}
+#game.touch #lockbox .info{width:120px}
+#game.touch #choice{top:50%}
+#game.touch #choice .opt kbd{display:none}
+#choice .opt{pointer-events:auto;cursor:pointer}
+@media (orientation:portrait){
+  #game.touch #objpanel{max-width:56vw}
+  #game.touch #comms{left:14px;right:14px;top:132px;width:auto;transform:none}
+  #game.touch #status{bottom:236px;width:66vw}
+  #game.touch #hint{bottom:300px;max-width:86vw}
+  #game.touch #radar{width:86px;height:86px}
+  #game.touch #tPause{right:calc(110px + var(--r))}
+}
 .doc{margin:auto 16px;margin-left:clamp(16px,5vw,80px);align-self:center;width:min(620px,calc(100% - 32px));background:var(--paper);border-top:3px solid var(--hmc);padding:26px clamp(18px,3vw,34px) 28px;box-sizing:border-box}
 #screen{padding-block:24px;box-sizing:border-box}
 #screen.title{background:linear-gradient(90deg,rgba(12,11,14,.82),rgba(12,11,14,.45) 50%,rgba(12,11,14,0) 75%)}
@@ -201,7 +253,7 @@ body{font-family:var(--f-display);-webkit-font-smoothing:antialiased;user-select
     <div id="choice" hidden>
       <div class="t">REMOTE RECALL IN PROGRESS</div>
       <div class="bar"><i></i></div>
-      <div class="opts"><div class="opt"><kbd>F</kbd>COMPLY</div><div class="opt"><kbd>G</kbd>SEVER UPLINK</div></div>
+      <div class="opts"><div class="opt" data-key="KeyF"><kbd>F</kbd>COMPLY</div><div class="opt" data-key="KeyG"><kbd>G</kbd>SEVER UPLINK</div></div>
     </div>
     <div id="status">
       <div class="row"><span class="lbl">AP</span><span id="apNum">9000</span></div>
@@ -217,6 +269,19 @@ body{font-family:var(--f-display);-webkit-font-smoothing:antialiased;user-select
       <div class="wpn" id="wK"><span class="slot">UTILITY</span><span class="wn">Repair Kit<span class="key">R</span></span><span class="wv">3</span></div>
     </div>
     <div id="frameTag"><span class="eyebrow">Frame HM-AC</span> <b id="callsign">WREN</b><div class="sub" id="frameSub">LICENSED · HALVARD–MACE</div></div>
+  </div>
+  <div id="touch" hidden>
+    <div id="stickHome">MOVE</div>
+    <div id="stick" hidden><div class="knob"></div></div>
+    <button type="button" class="tb" id="tFire" data-act="fire"><span>FIRE</span><small></small></button>
+    <button type="button" class="tb" id="tBlade" data-act="blade"><span>BLADE</span><small></small></button>
+    <button type="button" class="tb" id="tBoost" data-act="boost"><span>BOOST</span></button>
+    <button type="button" class="tb" id="tJump" data-act="jump"><span>JUMP</span></button>
+    <button type="button" class="tb" id="tMsl" data-act="msl"><span>MSL</span><small></small></button>
+    <button type="button" class="tb" id="tLock" data-act="lock"><span>LOCK</span></button>
+    <button type="button" class="tb" id="tKit" data-act="kit"><span>KIT</span><small></small></button>
+    <button type="button" class="tb" id="tPause" data-act="pause" aria-label="Pause">II</button>
+    <div id="rotate" hidden>Turn your phone sideways for a wider view</div>
   </div>
   <div id="screen"></div>
   <div class="fade" id="fade"></div>
@@ -246,14 +311,15 @@ if (!window.THREE) {
 }
 
 // ------------------------------------------------------------------ settings
-const settings = { sens: 1, invertY: false, vol: 0.8 };
+const TOUCH_DEVICE = matchMedia('(pointer: coarse)').matches || (navigator.maxTouchPoints > 0 && !matchMedia('(pointer: fine)').matches);
+const settings = { sens: 1, invertY: false, vol: 0.8, gfx: TOUCH_DEVICE ? 'low' : 'high' };
 try { Object.assign(settings, JSON.parse(localStorage.getItem('ironledger.settings') || '{}')); } catch (e) {}
 const saveSettings = () => { try { localStorage.setItem('ironledger.settings', JSON.stringify(settings)); } catch (e) {} };
 
 // ------------------------------------------------------------------ renderer / scene
 const canvas = $('#view');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.6));
+renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, settings.gfx === 'low' ? 1 : 1.6));
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.1;
 renderer.shadowMap.enabled = true;
@@ -309,7 +375,7 @@ const hemi = new THREE.HemisphereLight(0xc4ad9e, 0x2b1c16, 0.55);
 scene.add(hemi);
 const sun = new THREE.DirectionalLight(0xffb27c, 2.1);
 sun.castShadow = true;
-sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.mapSize.set(settings.gfx === 'low' ? 1024 : 2048, settings.gfx === 'low' ? 1024 : 2048);
 Object.assign(sun.shadow.camera, { left: -110, right: 110, top: 110, bottom: -110, near: 10, far: 700 });
 sun.shadow.bias = -0.0006;
 sun.shadow.normalBias = 0.6;
@@ -1555,6 +1621,7 @@ addEventListener('mousemove', e => {
 });
 document.addEventListener('mouseleave', () => { mouse.moved = false; });
 function requestLock(quiet) {
+  if (touch.on) return;
   try {
     const r = canvas.requestPointerLock && canvas.requestPointerLock();
     if (r && r.catch) r.catch(() => enableFreeMouse());
@@ -1574,6 +1641,107 @@ document.addEventListener('pointerlockchange', () => {
 });
 document.addEventListener('pointerlockerror', () => enableFreeMouse());
 
+// ------------------------------------------------------------------ touch controls
+const touch = { on: false, mx: 0, mz: 0, lookX: 0, lookY: 0, ptr: new Map(), stickId: null };
+const K = (desk, tch) => touch.on ? tch : desk;
+const gameEl = $('#game'), touchEl = $('#touch'), stickEl = $('#stick'), knobEl = $('#stick .knob'), rotateEl = $('#rotate');
+function setTouchMode(v) { touch.on = v; gameEl.classList.toggle('touch', v); }
+setTouchMode(TOUCH_DEVICE);
+addEventListener('touchstart', () => {
+  if (touch.on) return;
+  setTouchMode(true);
+}, { passive: true });
+function touchAct(act, down) {
+  switch (act) {
+    case 'fire': mouse.l = down; break;
+    case 'jump': keys.Space = down; if (down) pressed.Space = true; break;
+    case 'blade': if (down) mouse.rPressed = true; break;
+    case 'boost': if (down) pressed.ShiftLeft = true; break;
+    case 'msl': if (down) pressed.KeyQ = true; break;
+    case 'lock': if (down) pressed.KeyE = true; break;
+    case 'kit': if (down) pressed.KeyR = true; break;
+    case 'pause': if (down) pause(); break;
+  }
+}
+function releaseTouches() {
+  for (const [, r] of touch.ptr) if (r.btn) { r.btn.classList.remove('on'); touchAct(r.act, false); }
+  touch.ptr.clear(); touch.stickId = null; touch.mx = touch.mz = 0; touch.lookX = touch.lookY = 0;
+  stickEl.hidden = true;
+}
+touchEl.addEventListener('pointerdown', e => {
+  if (game.state !== 'playing') return;
+  e.preventDefault();
+  try { touchEl.setPointerCapture(e.pointerId); } catch (err) {}
+  AU.init();
+  const btn = e.target.closest('.tb');
+  if (btn) {
+    touch.ptr.set(e.pointerId, { btn, act: btn.dataset.act, x: e.clientX, y: e.clientY });
+    btn.classList.add('on'); touchAct(btn.dataset.act, true);
+    return;
+  }
+  if (e.clientX < innerWidth * 0.42 && touch.stickId === null) {
+    touch.stickId = e.pointerId;
+    touch.ptr.set(e.pointerId, { stick: true, ox: e.clientX, oy: e.clientY });
+    stickEl.hidden = false; stickEl.style.transform = `translate(${e.clientX}px,${e.clientY}px)`; knobEl.style.transform = '';
+  } else touch.ptr.set(e.pointerId, { look: true, x: e.clientX, y: e.clientY });
+});
+touchEl.addEventListener('pointermove', e => {
+  const r = touch.ptr.get(e.pointerId); if (!r) return;
+  e.preventDefault();
+  if (r.stick) {
+    let dx = e.clientX - r.ox, dy = e.clientY - r.oy; const d = Math.hypot(dx, dy), R = 56;
+    if (d > R) { dx *= R / d; dy *= R / d; }
+    knobEl.style.transform = `translate(${dx}px,${dy}px)`;
+    touch.mx = dx / R; touch.mz = dy / R;
+  } else if (r.look || r.act === 'fire') {
+    touch.lookX += e.clientX - r.x; touch.lookY += e.clientY - r.y; r.x = e.clientX; r.y = e.clientY;
+  }
+});
+const touchEnd = e => {
+  const r = touch.ptr.get(e.pointerId); if (!r) return;
+  touch.ptr.delete(e.pointerId);
+  if (r.btn) { r.btn.classList.remove('on'); touchAct(r.act, false); }
+  if (r.stick) { touch.stickId = null; touch.mx = touch.mz = 0; stickEl.hidden = true; }
+};
+touchEl.addEventListener('pointerup', touchEnd);
+touchEl.addEventListener('pointercancel', touchEnd);
+touchEl.addEventListener('contextmenu', e => e.preventDefault());
+document.querySelectorAll('#choice .opt').forEach(o => o.addEventListener('pointerdown', e => { e.preventDefault(); pressed[o.dataset.key] = true; }));
+const tbFire = $('#tFire small'), tbBlade = $('#tBlade small'), tbMsl = $('#tMsl small'), tbKit = $('#tKit small');
+const tbBladeEl = $('#tBlade'), tbMslEl = $('#tMsl'), tbKitEl = $('#tKit');
+function updateTouchUI() {
+  const show = touch.on && game.state === 'playing';
+  if (touchEl.hidden === show) { touchEl.hidden = !show; if (!show) releaseTouches(); }
+  if (!show) return;
+  const portrait = innerHeight > innerWidth;
+  if (rotateEl.hidden === portrait) rotateEl.hidden = !portrait;
+  touchEl.style.pointerEvents = ui.choice.hidden ? '' : 'none';
+  const p = player;
+  tbFire.textContent = p.ammo;
+  tbBlade.textContent = p.bladeCd > 0 ? p.bladeCd.toFixed(1) : ''; tbBladeEl.classList.toggle('cool', p.bladeCd > 0);
+  tbMsl.textContent = p.msCd > 0 ? p.msCd.toFixed(1) : p.missiles; tbMslEl.classList.toggle('cool', p.msCd > 0);
+  tbKit.textContent = p.kits; tbKitEl.classList.toggle('cool', p.kits <= 0);
+}
+function applyGfx() {
+  const low = settings.gfx === 'low';
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, low ? 1 : 1.6));
+  const sz = low ? 1024 : 2048;
+  if (sun.shadow.mapSize.x !== sz) { sun.shadow.mapSize.set(sz, sz); if (sun.shadow.map) { sun.shadow.map.dispose(); sun.shadow.map = null; } }
+  resize();
+}
+function settingsHTML(prefix) {
+  return `<label for="${prefix}Sens">Look speed <input type="range" id="${prefix}Sens" min="0.3" max="2.5" step="0.05" value="${settings.sens}"></label>
+    <label for="${prefix}Vol">Volume <input type="range" id="${prefix}Vol" min="0" max="1" step="0.05" value="${settings.vol}"></label>
+    <label for="${prefix}Gfx">Graphics <select id="${prefix}Gfx"><option value="high"${settings.gfx === 'high' ? ' selected' : ''}>High</option><option value="low"${settings.gfx === 'low' ? ' selected' : ''}>Low</option></select></label>
+    <label for="${prefix}Inv"><input type="checkbox" id="${prefix}Inv" ${settings.invertY ? 'checked' : ''}> Invert Y</label>`;
+}
+function bindSettings(prefix) {
+  $('#' + prefix + 'Sens').oninput = e => { settings.sens = +e.target.value; saveSettings(); };
+  $('#' + prefix + 'Vol').oninput = e => { settings.vol = +e.target.value; AU.setVol(settings.vol); saveSettings(); };
+  $('#' + prefix + 'Gfx').onchange = e => { settings.gfx = e.target.value; saveSettings(); applyGfx(); };
+  $('#' + prefix + 'Inv').onchange = e => { settings.invertY = e.target.checked; saveSettings(); };
+}
+
 // ------------------------------------------------------------------ player update
 const _aim = V3(), _camPos = V3(), _look = V3(), _tmp = V3();
 const aimPoint = V3();
@@ -1588,6 +1756,10 @@ function updatePlayer(dt) {
     const nx = (mouse.x / innerWidth) * 2 - 1, ny = (mouse.y / innerHeight) * 2 - 1;
     const ex = Math.sign(nx) * Math.max(0, Math.abs(nx) - 0.35) / 0.65, ey = Math.sign(ny) * Math.max(0, Math.abs(ny) - 0.4) / 0.6;
     dyaw -= ex * 2.4 * dt * settings.sens; dpitch -= ey * 1.4 * dt * settings.sens * (settings.invertY ? -1 : 1);
+  }
+  if (touch.lookX || touch.lookY) {
+    dyaw -= touch.lookX * 0.0058 * settings.sens; dpitch -= touch.lookY * 0.0042 * settings.sens * (settings.invertY ? -1 : 1);
+    touch.lookX = touch.lookY = 0;
   }
   if (keys.ArrowLeft) dyaw += 2.2 * dt; if (keys.ArrowRight) dyaw -= 2.2 * dt;
   if (keys.ArrowUp) dpitch += 1.4 * dt; if (keys.ArrowDown) dpitch -= 1.4 * dt;
@@ -1606,8 +1778,10 @@ function updatePlayer(dt) {
   p.fireCd -= dt; p.bladeCd -= dt; p.msCd -= dt; p.recoil = damp(p.recoil, 0, 12, dt);
 
   // movement intent
-  let ix = 0, iz = 0;
+  let ix = 0, iz = 0, moveMag = 1;
   if (canAct) { if (keys.KeyW) iz -= 1; if (keys.KeyS) iz += 1; if (keys.KeyA) ix -= 1; if (keys.KeyD) ix += 1; }
+  const tm = Math.hypot(touch.mx, touch.mz);
+  if (canAct && ix === 0 && iz === 0 && tm > 0.15) { ix = touch.mx; iz = touch.mz; moveMag = clamp((tm - 0.15) / 0.55, 0.3, 1); }
   const il = Math.hypot(ix, iz); if (il > 0) { ix /= il; iz /= il; }
   const cy = Math.cos(p.yaw), sy = Math.sin(p.yaw);
   // world wish: forward=(-sy,-cy), right=(cy,-sy)
@@ -1637,7 +1811,7 @@ function updatePlayer(dt) {
   }
   if (!p.lunge) {
     const k = p.qbT > 0 ? 1.4 : (p.onGround ? 7 : 2.4);
-    const sp = p.onGround ? speed : speed * 0.92;
+    const sp = (p.onGround ? speed : speed * 0.92) * moveMag;
     p.vel.x = damp(p.vel.x, wx * sp, k, dt); p.vel.z = damp(p.vel.z, wz * sp, k, dt);
     // vertical
     if (canAct && keys.Space && p.overheat <= 0 && p.en > 0) {
@@ -1782,7 +1956,7 @@ function updateLock() {
     if (!e.alive || !e.targetable) continue;
     const c = e.center(_v1); const d = c.distanceTo(p.pos); if (d > 420) continue;
     const ang = _v2.copy(c).sub(camera.position).normalize().angleTo(camF);
-    const lim = 0.2 + clamp(20 / d, 0, 0.2);
+    const lim = (0.2 + clamp(20 / d, 0, 0.2)) * (touch.on ? 1.4 : 1);
     if (ang < lim) { const s = ang + d / 3000 + (e === p.lock ? -0.05 : 0); if (s < bestS) { bestS = s; best = e; } }
   }
   p.lock = best;
@@ -1872,7 +2046,7 @@ function updateHUD(dt) {
   }
   // warnings
   if (incomingMissile()) { warn('MISSILE ALERT', 0.2); game.alarmT = (game.alarmT || 0) - dt; if (game.alarmT <= 0) { AU.play('alarm'); game.alarmT = 0.7; } }
-  if (p.ap < p.apMax * 0.25 && p.alive) { warn('AP CRITICAL — R TO REPAIR', 0.2, true); }
+  if (p.ap < p.apMax * 0.25 && p.alive) { warn(K('AP CRITICAL — R TO REPAIR', 'AP CRITICAL — TAP KIT'), 0.2, true); }
   let wh = '';
   for (const [k, w] of warnings) { w.t -= dt; if (w.t <= 0) warnings.delete(k); else wh += `<div class="${w.soft ? 'soft' : ''}">${k}</div>`; }
   if (ui.warn._h !== wh) { ui.warn.innerHTML = wh; ui.warn._h = wh; }
@@ -1949,14 +2123,14 @@ const MISSIONS = [
       };
       say('VESNA', 'Drop complete. Systems check, Wren.');
       say('VESNA', "Orison drones inbound from the north. Show me you still remember how this works.", () => spawnWave(1));
-      hint('WASD move · Mouse aim · Space jump, hold to hover · Shift quick boost', 9);
-      after(10, () => hint('LMB rifle · Targets near the reticle lock automatically', 8));
+      hint(K('WASD move · Mouse aim · Space jump, hold to hover · Shift quick boost', 'Left thumb moves · Drag the right side to aim · Hold JUMP to hover · BOOST dashes'), 9);
+      after(10, () => hint(K('LMB rifle · Targets near the reticle lock automatically', 'Hold FIRE, and slide it to aim while shooting · Targets near the reticle lock on'), 8));
       this.update = () => {
         if (wave > 0 && alive().length === 0 && !this.busy) {
           this.busy = true;
           if (wave === 1) {
             say('VESNA', 'Good. Your combat patterns are within expected parameters.');
-            say('VESNA', "Armor moving in from the east. Crawler tanks. Hit them hard enough and they'll stagger. Then finish them with the blade.", () => { spawnWave(2); this.busy = false; hint('RMB pulse blade lunges at your target · Q missiles · E hard lock', 9);
+            say('VESNA', "Armor moving in from the east. Crawler tanks. Hit them hard enough and they'll stagger. Then finish them with the blade.", () => { spawnWave(2); this.busy = false; hint(K('RMB pulse blade lunges at your target · Q missiles · E hard lock', 'BLADE lunges at your target · MSL fires missiles · LOCK keeps your aim on a target'), 9);
               after(9, () => { say('ORISON', 'All units, HMC frame in the basin. Control, check that transponder. That is the same ID we put in the ground last spring.'); say('ORISON', 'Negative. That frame was confirmed destroyed. Pilot is dead. Recheck your sensors.'); say('VESNA', 'Enemy chatter. Ignore it.'); });
             });
           } else if (wave === 2) {
@@ -2157,7 +2331,7 @@ const MISSIONS = [
       let t = 0, done = false;
       ui.choice.hidden = false; game.glitch = 0.15;
       ui.frameSub.textContent = 'REMOTE OVERRIDE ACTIVE';
-      hint('Your frame is being taken over remotely. Choose.', 6);
+      hint(K('Your frame is being taken over remotely. Choose.', 'Your frame is being taken over remotely. Tap a choice.'), 6);
       this.update = (dt) => {
         if (done) return;
         t += dt;
@@ -2245,29 +2419,13 @@ function showTitle() {
         <button class="btn" id="bWake" autofocus>Wake up</button>
         ${game.save ? '<button class="btn ghost" id="bCont">Continue · ' + MISSIONS[game.save].name + '</button>' : ''}
       </div>
-      <div class="controls">
-        <div><span>Move</span><kbd>W A S D</kbd></div>
-        <div><span>Aim</span><kbd>MOUSE</kbd></div>
-        <div><span>Jump / hover</span><kbd>SPACE</kbd></div>
-        <div><span>Quick boost</span><kbd>SHIFT</kbd></div>
-        <div><span>Rifle</span><kbd>LEFT CLICK</kbd></div>
-        <div><span>Pulse blade</span><kbd>RIGHT CLICK</kbd></div>
-        <div><span>Missiles</span><kbd>Q</kbd></div>
-        <div><span>Hard lock</span><kbd>E</kbd></div>
-        <div><span>Repair kit</span><kbd>R</kbd></div>
-        <div><span>Pause</span><kbd>ESC</kbd></div>
-      </div>
-      <div class="settings">
-        <label for="sSens">Mouse <input type="range" id="sSens" min="0.3" max="2.5" step="0.05" value="${settings.sens}"></label>
-        <label for="sVol">Volume <input type="range" id="sVol" min="0" max="1" step="0.05" value="${settings.vol}"></label>
-        <label for="sInv"><input type="checkbox" id="sInv" ${settings.invertY ? 'checked' : ''}> Invert Y</label>
-        ${ends ? `<span>Endings found · ${ends} / 2</span>` : ''}
-      </div>
-      <div class="touchnote">Iron Ledger needs a keyboard and mouse.</div>
+      <div class="controls">${(touch.on ? [['Move', 'LEFT THUMB'], ['Aim', 'DRAG RIGHT SIDE'], ['Rifle', 'HOLD FIRE'], ['Pulse blade', 'BLADE'], ['Quick boost', 'BOOST'], ['Jump / hover', 'HOLD JUMP'], ['Missiles', 'MSL'], ['Hard lock', 'LOCK'], ['Repair kit', 'KIT'], ['Pause', 'II']]
+        : [['Move', 'W A S D'], ['Aim', 'MOUSE'], ['Jump / hover', 'SPACE'], ['Quick boost', 'SHIFT'], ['Rifle', 'LEFT CLICK'], ['Pulse blade', 'RIGHT CLICK'], ['Missiles', 'Q'], ['Hard lock', 'E'], ['Repair kit', 'R'], ['Pause', 'ESC']])
+        .map(([a, b]) => `<div><span>${a}</span><kbd>${b}</kbd></div>`).join('')}</div>
+      <div class="settings">${settingsHTML('s')}${ends ? `<span>Endings found · ${ends} / 2</span>` : ''}</div>
+      <div class="touchnote">Best played in landscape, with sound on.</div>
     </div>`, 'title');
-  $('#sSens').oninput = e => { settings.sens = +e.target.value; saveSettings(); };
-  $('#sVol').oninput = e => { settings.vol = +e.target.value; AU.setVol(settings.vol); saveSettings(); };
-  $('#sInv').onchange = e => { settings.invertY = e.target.checked; saveSettings(); };
+  bindSettings('s');
   $('#bWake').onclick = () => { AU.init(); game.credits = 0; showBriefing(0); };
   const c = $('#bCont'); if (c) c.onclick = () => { AU.init(); showBriefing(game.save); };
   clearWorld();
@@ -2311,22 +2469,24 @@ function startMission(i, cp) {
   const m = MISSIONS[i]; m.update = null; m.busy = false;
   m.start(cp);
   requestLock();
+  if (touch.on && !document.fullscreenElement && document.documentElement.requestFullscreen) {
+    document.documentElement.requestFullscreen({ navigationUI: 'hide' }).then(() => screen.orientation && screen.orientation.lock && screen.orientation.lock('landscape').catch(() => {})).catch(() => {});
+  }
 }
 function pause() {
   if (game.state !== 'playing') return;
   game.state = 'paused';
+  releaseTouches();
   if (document.pointerLockElement) document.exitPointerLock();
   mouse.l = mouse.r = false;
   setScreen(`<div class="center-card"><div class="eyebrow">Contract ${MISSIONS[game.missionIndex].code}</div><h2>Paused</h2>
     <div class="actions"><button class="btn" id="bRes">Resume</button><button class="btn ghost" id="bRetry">Restart from checkpoint</button><button class="btn ghost" id="bQuit">Abandon contract</button></div>
-    <div class="settings" style="justify-content:center"><label for="pSens">Mouse <input type="range" id="pSens" min="0.3" max="2.5" step="0.05" value="${settings.sens}"></label><label for="pVol">Volume <input type="range" id="pVol" min="0" max="1" step="0.05" value="${settings.vol}"></label><label for="pInv"><input type="checkbox" id="pInv" ${settings.invertY ? 'checked' : ''}> Invert Y</label></div></div>`);
+    <div class="settings" style="justify-content:center">${settingsHTML('p')}</div></div>`);
   ui.screen.style.background = 'rgba(12,11,14,.6)';
   $('#bRes').onclick = resume;
   $('#bRetry').onclick = () => { ui.screen.style.background = ''; startMission(game.missionIndex, game.checkpoint); };
   $('#bQuit').onclick = () => { ui.screen.style.background = ''; showTitle(); };
-  $('#pSens').oninput = e => { settings.sens = +e.target.value; saveSettings(); };
-  $('#pVol').oninput = e => { settings.vol = +e.target.value; AU.setVol(settings.vol); saveSettings(); };
-  $('#pInv').onchange = e => { settings.invertY = e.target.checked; saveSettings(); };
+  bindSettings('p');
 }
 function resume() {
   if (game.state !== 'paused') return;
@@ -2461,11 +2621,12 @@ function tick(dt) {
   sun.position.copy(player.pos).addScaledVector(SUN_DIR, 350); sun.target.position.copy(player.pos);
   sky.position.copy(camera.position);
   ash.update(dt, camera.position);
+  updateTouchUI();
   for (const k in pressed) pressed[k] = false;
 }
 showTitle();
 frame();
-window.__ironLedger = { game, player, enemies: () => enemies, startMission, MISSIONS, keys, pressed, mouse, renderer, step(n, dt = 1 / 60) { for (let i = 0; i < n; i++) tick(dt); }, damage, kill: killEnemy };
+window.__ironLedger = { game, player, enemies: () => enemies, startMission, MISSIONS, keys, pressed, mouse, renderer, touch, step(n, dt = 1 / 60) { for (let i = 0; i < n; i++) tick(dt); }, damage, kill: killEnemy };
 })();
 </script>
 </body>
