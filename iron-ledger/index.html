@@ -1388,7 +1388,7 @@ function makeAC(cfg) {
         if (this.qbCd <= 0) for (const p of projectiles) {
           if (p.team !== 'player') continue;
           const rx = this.pos.x - p.pos.x, rz = this.pos.z - p.pos.z, rd = Math.hypot(rx, rz);
-          if (rd < (p.kind === 'missile' ? 50 : 140) && (rx * p.vel.x + rz * p.vel.z) > 0 && Math.random() < (p.kind === 'missile' ? 0.7 : 0.12) * aggr) {
+          if (rd < (p.kind === 'missile' ? 50 : 140) && (rx * p.vel.x + rz * p.vel.z) > 0 && Math.random() < (p.kind === 'missile' ? 0.7 : 0.18) * aggr) {
             const s = Math.random() < 0.5 ? -1 : 1;
             this.vel.x += -dirz * s * 88; this.vel.z += dirx * s * 88; this.qbT = 0.3; this.qbCd = (this.phase === 2 ? 0.9 : 1.5);
             AU.play('qb', dist); for (let i = 0; i < 8; i++) FX.spawn(this.pos.x, this.pos.y + 7, this.pos.z, rand(-6, 6), rand(-2, 2), rand(-6, 6), 0.25, 2, 0.5, 1, 0.6, 0.3, 1);
@@ -1804,6 +1804,14 @@ function updateCamera(dt) {
   if (inVault(p.pos) && _camPos.y > SITE.g + vault.h - 1) _camPos.y = SITE.g + vault.h - 1;
   camera.position.copy(_camPos);
   _look.copy(pivot).addScaledVector(_aim, 60);
+  if (game.cine) {
+    game.cineK = Math.min(1, (game.cineK || 0) + dt * 0.8);
+    const k = smooth(0, 1, game.cineK);
+    camera.position.lerp(game.cine.pos, k);
+    game.cineLook = (game.cineLook || V3()).copy(_look).lerp(game.cine.look, k);
+    camera.lookAt(game.cineLook);
+    return;
+  }
   if (shake > 0) { camera.position.x += rand(-1, 1) * shake * 0.5; camera.position.y += rand(-1, 1) * shake * 0.5; shake = Math.max(0, shake - dt * 3); }
   camera.lookAt(_look);
 }
@@ -1872,6 +1880,7 @@ function updateHUD(dt) {
   hitmarkT -= dt; ui.hitmark.style.opacity = hitmarkT > 0 ? 1 : 0;
   killT -= dt; ui.killfeed.style.opacity = killT > 0 ? 1 : 0;
   hintT -= dt; ui.hint.style.opacity = hintT > 0 ? 1 : 0;
+  $('#reticle').style.display = game.cine ? 'none' : '';
   ui.glitch.style.opacity = game.glitch ? (Math.random() < game.glitch ? Math.random() * 0.9 : 0) : 0;
   // compass
   const heading = ((-p.yaw * 180 / Math.PI) % 360 + 360) % 360;
@@ -1917,7 +1926,7 @@ function clearWorld() {
   enemies = []; projectiles = []; timers = []; props = [];
   comms.queue = []; comms.cur = null; ui.comms.hidden = true;
   warnings.clear(); setMarkers([]); hintT = 0;
-  ui.progress.hidden = true; ui.choice.hidden = true; game.glitch = 0;
+  ui.progress.hidden = true; ui.choice.hidden = true; game.glitch = 0; game.cine = null;
   vault.door.position.y = SITE.g + 9; vault.doorCol.enabled = true; vault.light.intensity = 0;
 }
 function newStats() { return { rounds: 0, missiles: 0, kits: 0, blades: 0, dmgTaken: 0, kills: 0, boost: 0 }; }
@@ -2098,7 +2107,7 @@ const MISSIONS = [
       say('SYS', 'AC signature descending. Directly overhead.');
       after(1.2, () => {
         const boss = makeAC({
-          name: 'HOLLOW', scheme: HOLLOW_SCHEME, ap: 17000, impMax: 2700, x: 0, z: S.z - 10, drop: true, phase2: true, shock: true, rifleDmg: 220, bladeDmg: 2100,
+          name: 'HOLLOW', scheme: HOLLOW_SCHEME, ap: 22000, impMax: 2700, x: 0, z: S.z - 10, drop: true, phase2: true, shock: true, rifleDmg: 220, bladeDmg: 2100,
           onPhase2: () => { say('HOLLOW', 'They told me I was the first, too.'); say('VESNA', "Don't talk to it. Finish it."); },
           onDeath: () => {
             game.checkpoint = 2;
@@ -2129,7 +2138,9 @@ const MISSIONS = [
         }
         if (opened && !confirmed && Math.hypot(player.pos.x, player.pos.z - (vault.z0 + 16)) < 20) {
           confirmed = true; setObjText(2, 'Confirm the asset', true);
-          player.frozen = true;
+          player.frozen = true; player.hardLock = false;
+          const pz = vault.z0 + 16;
+          game.cine = { pos: V3(-17, S.g + 8, pz + 17), look: V3(0, S.g + 7, pz) }; game.cineK = 0;
           game.music = 0;
           say('SYS', 'ASSET 0 · NEURAL TEMPLATE SOURCE · CRYOSTASIS · VITALS STABLE');
           say('SYS', 'DERIVED UNITS: WREN-01 THROUGH WREN-06 · STATUS: WRITTEN OFF');
@@ -2166,6 +2177,7 @@ const MISSIONS = [
       after(4, () => showEnding('comply'));
     },
     sever() {
+      game.cine = null;
       game.glitch = 0.9; AU.play('glitch'); shake = 1;
       ui.frameSub.textContent = 'LICENSE REVOKED';
       setTimeout(() => { game.glitch = 0; }, 900);
@@ -2185,7 +2197,7 @@ const MISSIONS = [
       after(5, () => {
         say('W8', 'Contractor WREN, on station. First contract. Let us make it count.');
         w8 = makeAC({
-          name: 'WREN-08', scheme: PLAYER_SCHEME, ap: 12000, impMax: 2400, x: 0, z: S.z + 60, drop: true, phase2: true, shock: false, rifleDmg: 200, bladeDmg: 1900,
+          name: 'WREN-08', scheme: PLAYER_SCHEME, ap: 14000, impMax: 2400, x: 0, z: S.z + 60, drop: true, phase2: true, shock: false, rifleDmg: 200, bladeDmg: 1900,
           onPhase2: () => say('W8', 'Your patterns... why do I already know your patterns?'),
           onDeath: () => { w8dead = true; setObjText(1, 'Survive WREN-08', true); say('W8', 'Was this... was this my first?'); },
         });
